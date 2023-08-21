@@ -1,27 +1,16 @@
-# React + TypeScript + Vite
+# Hierarchical table
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Start server by running `npm run dev`. The server should start on `http://localhost:5173/`.
 
-Currently, two official plugins are available:
+## Shortcomings
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+I noticed that children seem to have different types. I merge all of these types into a single list of children.
+As the example data always has only one child type this does not matter. If we would want to change this,
+then we would need to update the decoration of the data and probably UI as we would most likely want different expand
+buttons for the different types of children items.
 
-## Expanding the ESLint configuration
+The rows use the field `ID` and their index, since ID is not unique, as their keys. It would be best if the `ID`
+fields would be globally unique or some other globally unique keys were available.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+If we were to add more actions that can be done on the rows, we would probably like to introduce a reducer and maybe
+also the `immer` library for easier object state management
