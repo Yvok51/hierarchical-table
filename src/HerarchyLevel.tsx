@@ -36,7 +36,11 @@ export default function HierarchyLevel({
     updateTable(data);
   }
 
-  const rows = items.map((item) => {
+  function getUUID(item: TableItem, idx: number) {
+    return `${idx}-${level}-${item.data["ID"]}`;
+  }
+
+  const rows = items.map((item, idx) => {
     const values = dataKeys.map((key) => item.data[key]);
     const updateRow = (record: ChildRecord) => {
       updateItem(item, { data: item.data, children: record });
@@ -64,9 +68,9 @@ export default function HierarchyLevel({
       </td>
     );
 
-    const currentRow = // Presumes all items have "id" field (which example data do)
+    const currentRow = // Presumes all items have "ID" field (which example data do)
       (
-        <tr key={item.data["id"]} data-level={level}>
+        <tr key={getUUID(item, idx)} data-level={level}>
           {expandButton}
           {valueCells}
           {deleteButton}
@@ -75,10 +79,10 @@ export default function HierarchyLevel({
 
     if (item.children !== null && item.children.expanded) {
       return (
-        <Fragment key={`fragment-${item.data["id"]}`}>
+        <Fragment key={`fragment-${getUUID(item, idx)}`}>
           {currentRow}
           <HierarchyLevel
-            key={`subtable-${item.data["id"]}`}
+            key={`subtable-${getUUID(item, idx)}`}
             items={item.children.records}
             updateTable={(data) => {
               updateRow({ expanded: item.children!.expanded, records: data });
@@ -95,7 +99,7 @@ export default function HierarchyLevel({
   return (
     <>
       <tr
-        key={`header-${items.map((item) => item.data["id"]).join("-")}`}
+        key={`header-${items.map((item) => getUUID(item, -1)).join("|")}`}
         data-level={level}
       >
         {expandHeader} {dataHeaders} {deleteHeader}
