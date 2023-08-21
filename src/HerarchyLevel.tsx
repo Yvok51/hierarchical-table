@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { ChildRecord, TableItem } from "./TableData";
+import ExpandButton from "./ExpandButton";
 import "./assets/css/HierarchicalTable.css";
 
 export default function HierarchyLevel({
@@ -106,30 +107,6 @@ export default function HierarchyLevel({
       </tr>
       {rows}
     </>
-  );
-}
-
-function ExpandButton({
-  childRecord,
-  updateRow,
-}: {
-  childRecord: ChildRecord;
-  updateRow: (record: ChildRecord) => void;
-}) {
-  function clickExpandButton() {
-    updateRow({ ...childRecord, expanded: !childRecord.expanded });
-    // currently all children remain expanded/collapsed as before
-    // If we would want to collapse all children when collapsing the parent, then we would have to walk the tree
-  }
-
-  return childRecord.expanded ? (
-    <td>
-      <span onClick={clickExpandButton}>▼</span>
-    </td>
-  ) : (
-    <td>
-      <span onClick={clickExpandButton}>▶</span>
-    </td>
   );
 }
 
