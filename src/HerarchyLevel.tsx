@@ -26,13 +26,13 @@ export default function HierarchyLevel({
   }
 
   function deleteItem(item: TableItem) {
-    let data = [...items];
+    const data = [...items];
     data.splice(data.indexOf(item), 1);
     updateTable(data);
   }
 
   function updateItem(item: TableItem, newItem: TableItem) {
-    let data = [...items];
+    const data = [...items];
     data[data.indexOf(item)] = checkIntegrity(newItem);
     updateTable(data);
   }
@@ -110,7 +110,7 @@ export default function HierarchyLevel({
   );
 }
 
-function getKeys(items: {}[]): string[] {
+function getKeys(items: object[]): string[] {
   const set = new Set<string>();
   for (const item of items) {
     for (const key in item) {

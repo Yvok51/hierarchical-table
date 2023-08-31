@@ -36,7 +36,7 @@ export default function HierarchicalTable() {
 }
 
 function insertOffsetRules(to: number) {
-  let sheet = window.document.styleSheets[0];
+  const sheet = window.document.styleSheets[0];
   for (let i = 0; i <= to; i++) {
     sheet.insertRule(
       `[data-level="${i}"] { position: relative; left: ${i * 10}px; }`
